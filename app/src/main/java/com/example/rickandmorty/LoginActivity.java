@@ -24,6 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginButton, registerButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Thread.sleep(2000);
+        setTheme(R.style.Theme_RickAndMorty);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
