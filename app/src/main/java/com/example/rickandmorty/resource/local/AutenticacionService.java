@@ -16,3 +16,4 @@ public interface AutenticacionService {
     @DELETE("auth/logout")
     Call<Void> logoutUser(@Header("Authorization")String token);
 }
+
