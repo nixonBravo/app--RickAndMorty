@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CharacterActivity">
+    tools:context=".CharacterActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,24 +16,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginVertical="20dp">
-
-            <TextView
-                android:id="@+id/textViewStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="25dp"
-                android:text="Alive"
-                android:textColor="#000000"
-                android:textSize="30sp" />
+            android:layout_marginTop="16dp"
+            android:paddingBottom="4dp">
 
             <TextView
                 android:id="@+id/textViewSpecies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="25dp"
+                android:text="Human"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textViewStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textEnd"
                 android:paddingRight="25dp"
-                android:text="Human"
+                android:text="Alive"
+                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="30sp" />
         </LinearLayout>
@@ -49,7 +53,7 @@
             android:id="@+id/textViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:paddingTop="8dp"
             android:textSize="30sp"
             android:textColor="#000000"
             android:textStyle="bold"
@@ -59,7 +63,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginTop="2dp"
             android:textSize="20sp"
             android:textColor="#000000"
             android:textStyle="bold"

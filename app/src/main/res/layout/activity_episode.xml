@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EpisodeActivity">
+    tools:context=".EpisodeActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +22,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewEpisode"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingLeft="16dp"
-                    android:textSize="30sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:text="S010E10"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textViewEpisodeNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="16dp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:text="Episode:"/>
+                    <TextView
+                        android:id="@+id/textViewEpisode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="16dp"
+                        android:paddingLeft="5dp"
+                        android:textSize="30sp"
+                        android:textColor="#000000"
+                        android:text="S010E10"/>
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/textViewId"
@@ -50,30 +65,47 @@
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingLeft="16dp"
+                android:layout_marginVertical="8dp"
                 android:textSize="24sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 android:text="Something Ricked This Way Comes"/>
 
-            <TextView
-                android:id="@+id/textViewDate"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:textSize="20sp"
-                android:textColor="#000000"
-                android:text="March 24, 2014"/>
+                android:paddingRight="16dp">
+                <TextView
+                    android:id="@+id/textViewEstreno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Air Date:"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="March 24, 2014"
+                    android:paddingLeft="3dp"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="5dp"
                 android:textSize="20sp"
                 android:textColor="#000000"
                 android:textStyle="bold"
-                android:text="Personajes:" />
+                android:text="Characters:" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

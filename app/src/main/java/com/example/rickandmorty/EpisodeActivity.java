@@ -37,7 +37,7 @@ public class EpisodeActivity extends AppCompatActivity {
         textViewEpisode = findViewById(R.id.textViewEpisode);
         textViewDate = findViewById(R.id.textViewDate);
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         characterAdapter = new CharacterAdapter(this);
         recyclerView.setAdapter(characterAdapter);
 
