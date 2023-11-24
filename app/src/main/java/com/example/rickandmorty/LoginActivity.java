@@ -98,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
         } else if (username.length() < 3 || username.length() > 10) {
             showToast("El nombre de usuario debe tener entre 3 y 10 caracteres");
             return false;
-        } else if (password.length() <= 8) {
-            showToast("La contraseña debe tener al menos 8 caracteres");
+        } else if (password.length() <= 6) {
+            showToast("La contraseña debe tener al menos 6 caracteres");
             return false;
         }
         return true;

@@ -3,46 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/black">
 
-    <TextView
+
+    <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Register"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="222dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/letters_register" />
 
     <EditText
         android:id="@+id/usernameEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="Nombre de usuario"
-        android:inputType="text" />
+        android:layout_height="50dp"
+        android:paddingLeft="15dp"
+        android:hint="Username"
+        android:background="@color/white"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:drawableStart="@drawable/baseline_account_circle_24"/>
 
     <EditText
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:paddingLeft="15dp"
         android:layout_marginTop="16dp"
         android:hint="Email"
-        android:inputType="textPassword" />
+        android:background="@color/white"
+        android:textSize="20sp"
+        android:inputType="text"
+        android:drawableStart="@drawable/baseline_email_24"/>
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
+        android:paddingLeft="15dp"
         android:hint="Password"
-        android:inputType="textPassword" />
+        android:textSize="20sp"
+        android:inputType="textPassword"
+        android:background="@color/white"
+        android:drawableStart="@drawable/baseline_lock_24" />
 
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="61dp"
         android:layout_gravity="center"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@color/verde"
+        android:textSize="20dp"
+        android:text="Registrarse" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="250dp"
+        android:layout_height="61dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/verde"
+        android:textSize="20dp"
         android:text="Iniciar sesión" />
 
 </LinearLayout>

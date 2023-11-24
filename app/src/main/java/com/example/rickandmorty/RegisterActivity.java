@@ -22,6 +22,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
     private EditText usernameEditText, emailEditText, passwordEditText;
     private AutenticacionService autenticacionService;
+    private Button loginButton, registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +32,11 @@ public class RegisterActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
+        registerButton  = findViewById(R.id.registerButton);
+        loginButton = findViewById(R.id.loginButton);
 
         autenticacionService = RetrofitClientLocal.getInstance().getAutenticacionService();
 
-        Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,20 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    // Método para validar los campos de usuario, email y contraseña
-    /*private boolean isValidCredentials(String username, String email, String password) {
-        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Existen Campos Vacios", Toast.LENGTH_SHORT).show();
-            return false;
-        }else if (password.length() <= 8) {
-            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }*/
 
     private boolean isValidCredentials(String username, String email, String password) {
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
