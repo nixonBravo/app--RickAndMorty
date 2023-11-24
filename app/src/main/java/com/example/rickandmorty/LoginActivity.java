@@ -23,9 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     private AutenticacionService autenticacionService;
     private EditText usernameEditText, passwordEditText;
     private Button loginButton, registerButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Thread.sleep(2000);
         setTheme(R.style.Theme_RickAndMorty);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -33,55 +33,78 @@ public class LoginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.usernameEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         loginButton = findViewById(R.id.loginButton);
-        registerButton  = findViewById(R.id.registerButton);
+        registerButton = findViewById(R.id.registerButton);
 
         autenticacionService = RetrofitClientLocal.getInstance().getAutenticacionService();
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                User user = new User();
-                user.setUsername(username);
-                user.setPassword(password);
+                // Validar los campos de usuario y contraseña
+                if (isValidCredentials(username, password)) {
+                    User user = new User();
+                    user.setUsername(username);
+                    user.setPassword(password);
 
-                Call<User> call = autenticacionService.loginUser(user);
-                call.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (response.isSuccessful()) {
-                            User user = response.body();
-                            if (user.getAccessToken() != null) {
-                                Log.d("Login", "User logged in: " + user.getUsername());
-                                Intent intent = new Intent(LoginActivity.this, EpisodesActivity.class);
-                                intent.putExtra("user", user);
-                                startActivity(intent);
-                                SharedPreferences preferences = getSharedPreferences("MyApp", MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putString("token", user.getAccessToken());
-                                editor.apply();
+                    Call<User> call = autenticacionService.loginUser(user);
+                    call.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.isSuccessful()) {
+                                User user = response.body();
+                                if (user.getAccessToken() != null) {
+                                    Log.d("Login", "User logged in: " + user.getUsername());
+                                    Intent intent = new Intent(LoginActivity.this, EpisodesActivity.class);
+                                    intent.putExtra("user", user);
+                                    startActivity(intent);
+                                    SharedPreferences preferences = getSharedPreferences("MyApp", MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = preferences.edit();
+                                    editor.putString("token", user.getAccessToken());
+                                    editor.apply();
+                                } else {
+                                    showToast("Token inválido");
+                                }
                             } else {
-                                Log.e("Login", "Invalid token");
+                                showToast("Error: " + response.code());
                             }
-                        } else {
-                            Log.e("Login", "Error: " + response.code());
                         }
-                    }
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        // Handle the failure
-                        Log.e("Login", "Failure: " + t.getMessage());
-                    }
-                });
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            showToast("Failure: " + t.getMessage());
+                        }
+                    });
+                }
             }
         });
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
-   });
-}
+        });
+    }
+
+    private boolean isValidCredentials(String username, String password) {
+        if (username.isEmpty() || password.isEmpty()) {
+            showToast("Los campos de usuario y contraseña son obligatorios");
+            return false;
+        } else if (username.length() < 4 || username.length() > 20) {
+            showToast("El nombre de usuario debe tener entre 4 y 20 caracteres");
+            return false;
+        } else if (password.length() < 6) {
+            showToast("La contraseña debe tener al menos 6 caracteres");
+            return false;
+        }
+        return true;
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -2,7 +2,9 @@ package com.example.rickandmorty;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,14 +22,15 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
     private EditText usernameEditText, emailEditText, passwordEditText;
     private AutenticacionService autenticacionService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        EditText usernameEditText = findViewById(R.id.usernameEditText);
-        EditText emailEditText = findViewById(R.id.emailEditText);
-        EditText passwordEditText = findViewById(R.id.passwordEditText);
+        usernameEditText = findViewById(R.id.usernameEditText);
+        emailEditText = findViewById(R.id.emailEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
 
         autenticacionService = RetrofitClientLocal.getInstance().getAutenticacionService();
 
@@ -39,30 +42,52 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                User user = new User();
-                user.setUsername(username);
-                user.setEmail(email);
-                user.setPassword(password);
+                // Validar los campos de usuario, email y contraseña
+                if (isValidCredentials(username, email, password)) {
+                    User user = new User();
+                    user.setUsername(username);
+                    user.setEmail(email);
+                    user.setPassword(password);
 
-                Call<User> call = autenticacionService.registerUser(user);
-                call.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        if (response.isSuccessful()) {
-                            User user = response.body();
-                            Toast.makeText(RegisterActivity.this, "Usuario Registraso", Toast.LENGTH_SHORT).show();
-                            Log.d("Register", "User registered: " + user.getUsername());
-                        } else {
-                            Log.e("Register", "Error: " + response.message());
+                    Call<User> call = autenticacionService.registerUser(user);
+                    call.enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if (response.isSuccessful()) {
+                                User user = response.body();
+                                Toast.makeText(RegisterActivity.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+                                Log.d("Register", "User registered: " + user.getUsername());
+
+                                // Redirigir a la actividad de inicio de sesión después del registro exitoso
+                                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                                finish(); // Cierra la actividad actual para que no pueda volver atrás.
+                            } else {
+                                Toast.makeText(RegisterActivity.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+                                Log.e("Register", "Error: " + response.message());
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Log.e("Register", "Failure: " + t.getMessage());
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(RegisterActivity.this, "Error al realizar la solicitud", Toast.LENGTH_SHORT).show();
+                            Log.e("Register", "Failure: " + t.getMessage());
+                        }
+                    });
+                }
             }
-   });
-}
+        });
+    }
+
+    // Método para validar los campos de usuario, email y contraseña
+    private boolean isValidCredentials(String username, String email, String password) {
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Aquí puedes agregar más validaciones si es necesario
+
+        return true;
+    }
 }
