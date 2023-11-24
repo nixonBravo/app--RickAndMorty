@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private AutenticacionService autenticacionService;
     private EditText usernameEditText, passwordEditText;
     private Button loginButton, registerButton;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,17 +93,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isValidCredentials(String username, String password) {
         if (username.isEmpty() || password.isEmpty()) {
-            showToast("Los campos de usuario y contraseña son obligatorios");
+            showToast("Existen Campos Vacios");
             return false;
-        } else if (username.length() < 4 || username.length() > 20) {
-            showToast("El nombre de usuario debe tener entre 4 y 20 caracteres");
+        } else if (username.length() < 3 || username.length() > 10) {
+            showToast("El nombre de usuario debe tener entre 3 y 10 caracteres");
             return false;
-        } else if (password.length() < 6) {
-            showToast("La contraseña debe tener al menos 6 caracteres");
+        } else if (password.length() <= 8) {
+            showToast("La contraseña debe tener al menos 8 caracteres");
             return false;
         }
         return true;
     }
+
 
     private void showToast(String message) {
         Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();

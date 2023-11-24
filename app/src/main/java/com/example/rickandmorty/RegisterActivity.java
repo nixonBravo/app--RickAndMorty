@@ -80,14 +80,38 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // Método para validar los campos de usuario, email y contraseña
-    private boolean isValidCredentials(String username, String email, String password) {
+    /*private boolean isValidCredentials(String username, String email, String password) {
         if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Existen Campos Vacios", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (password.length() <= 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        // Aquí puedes agregar más validaciones si es necesario
+        return true;
+    }*/
+
+    private boolean isValidCredentials(String username, String email, String password) {
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Existen Campos Vacios", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (password.length() < 8) {
+            Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        } else if (!isValidEmail(email)) {
+            Toast.makeText(this, "Formato de correo electrónico no válido", Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
         return true;
+    }
+
+    private boolean isValidEmail(String email) {
+        // Patrón para verificar el formato del correo electrónico
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.(com|es|net|org|edu|gov|mil|biz|info)";
+
+        // Verificar si el correo electrónico coincide con el patrón
+        return email.matches(emailPattern);
     }
 }
